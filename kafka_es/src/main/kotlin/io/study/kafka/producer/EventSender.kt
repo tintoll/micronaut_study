@@ -11,7 +11,7 @@ import org.apache.kafka.clients.producer.ProducerRecord
 
 @Requires(property = "spec.name", value = "EventSenderTest")
 @Singleton
-class EventSender(@param:KafkaClient private val kafkaProducer: Producer<Long, Event>,
+class EventSender(@param:KafkaClient(id = "my-client", transactionalId = "my-tx-id-\${random.uuid}") private val kafkaProducer: Producer<Long, Event>,
                   @Property(name = "topic.producer") val topicName:String,
     ) {
 
