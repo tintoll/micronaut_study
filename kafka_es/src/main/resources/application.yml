@@ -15,6 +15,11 @@ kafka:
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
 
 
+
+
+org-id: ${ORG_ID}
+instance-id: ${INSTANCE_ID}
+
 topic:
-  name: tracking.organization.${ORG_ID}
+  consumer: tracking.organization.${ORG_ID}
   producer : tracking.organization.${ORG_ID}.test
