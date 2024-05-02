@@ -1,3 +1,20 @@
 micronaut:
   server:
     port: 9100
+
+
+kafka:
+  bootstrap:
+    servers:
+      - localhost:9091
+      - localhost:9092
+      - localhost:9093
+  consumers:
+    default:
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+
+
+topic:
+  name: tracking.organization.${ORG_ID}
+  producer : tracking.organization.${ORG_ID}.test
