@@ -11,7 +11,7 @@ dependencies {
 
     // elasticsearch
     implementation("io.micronaut.elasticsearch:micronaut-elasticsearch")
-    runtimeOnly("org.slf4j:log4j-over-slf4j:1.7.30")
+    runtimeOnly("org.slf4j:log4j-over-slf4j:2.0.13")
 }
 
 application {
