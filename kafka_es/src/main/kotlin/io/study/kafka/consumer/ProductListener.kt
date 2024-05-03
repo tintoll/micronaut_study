@@ -10,27 +10,27 @@ import org.apache.kafka.clients.consumer.ConsumerConfig
 import org.apache.kafka.common.IsolationLevel
 import org.slf4j.LoggerFactory
 
-@KafkaListener(
-    offsetReset = OffsetReset.EARLIEST,
-    groupId = "\${topic.consumer}-group",
-    offsetStrategy = OffsetStrategy.DISABLED,
-    properties = [
-        Property(name = ConsumerConfig.GROUP_INSTANCE_ID_CONFIG, value = "\${org-id}-group-instance-\${instance-id}"),
-        Property(name = ConsumerConfig.MAX_POLL_RECORDS_CONFIG, value = "10"),
-    ],
-    //batch = true,
+//@KafkaListener(
+//    offsetReset = OffsetReset.EARLIEST,
+//    groupId = "\${topic.consumer}-group",
+//    offsetStrategy = OffsetStrategy.DISABLED,
+//    properties = [
+//        Property(name = ConsumerConfig.GROUP_INSTANCE_ID_CONFIG, value = "\${org-id}-group-instance-\${instance-id}"),
+//        Property(name = ConsumerConfig.MAX_POLL_RECORDS_CONFIG, value = "10"),
+//    ],
+//    //batch = true,
 
 //    producerTransactionalId = "tx-event-\${topic.consumer}-\${random.uuid}",
 //    offsetStrategy = OffsetStrategy.SEND_TO_TRANSACTION,
-    isolation = IsolationLevel.READ_COMMITTED,
+//    isolation = IsolationLevel.READ_COMMITTED,
 
-    // 에러 전략
+//    // 에러 전략
 //    errorStrategy = ErrorStrategy(
 //        value = ErrorStrategyValue.RETRY_ON_ERROR,
 //        retryDelay = "50ms",
 //        retryCount = 3
 //    )
-)
+//)
 class ProductListener(private val objectMapper: ObjectMapper,
                       @Property(name = "topic.consumer") val topic: String,
                       private val productClient: ProductClient
