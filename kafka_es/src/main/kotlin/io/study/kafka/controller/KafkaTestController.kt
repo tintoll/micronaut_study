@@ -1,5 +1,6 @@
 package io.study.kafka.controller
 
+import co.elastic.clients.elasticsearch.ElasticsearchClient
 import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Get
 import io.study.kafka.models.Event
@@ -8,7 +9,10 @@ import io.study.kafka.producer.ProductClient
 
 
 @Controller
-class KafkaTestController(val productClient: ProductClient, private val eventSender: EventSender) {
+class KafkaTestController(val productClient: ProductClient,
+                          private val eventSender: EventSender,
+        private val esClient: ElasticsearchClient
+) {
 
     @Get("/kafka/send-product")
     fun sendProduct() {
@@ -34,8 +38,10 @@ class KafkaTestController(val productClient: ProductClient, private val eventSen
 //        }
 
         eventSender.sendEvents(events)
-
-
     }
 
+    @Get("/es/info")
+    fun esInfo() : String  {
+        return esClient.info().toString()
+    }
 }

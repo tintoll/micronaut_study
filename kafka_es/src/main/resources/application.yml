@@ -19,6 +19,10 @@ kafka:
       key-serializer: org.apache.kafka.common.serialization.StringDeserializer
       value-serializer: org.apache.kafka.common.serialization.StringDeserializer
 
+elasticsearch:
+  http-hosts: http://localhost:9200
+
+
 
 org-id: ${ORG_ID}
 instance-id: ${INSTANCE_ID}

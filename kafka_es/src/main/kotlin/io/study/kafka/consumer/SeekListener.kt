@@ -16,7 +16,7 @@ import java.time.Duration
 @KafkaListener(
     batch = true,
     offsetReset = OffsetReset.EARLIEST, groupId = "\${topic.consumer}-group",
-    offsetStrategy = OffsetStrategy.DISABLED
+//    offsetStrategy = OffsetStrategy.DISABLED
 )
 class SeekListener(private val objectMapper: ObjectMapper) {
 
