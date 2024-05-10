@@ -2,3 +2,8 @@ micronaut:
   server:
     port: 8200
 
+  security:
+    authentication: bearer
+    token:
+      jwt.signatures.secret.generator.secret: secret
+

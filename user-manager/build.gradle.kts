@@ -1,3 +1,4 @@
+
 plugins {
     id("micronaut-application")
 }
@@ -7,12 +8,16 @@ version = "0.1"
 
 dependencies {
     // security
-    annotationProcessor("io.micronaut.security:micronaut-security-annotations")
+    kapt("io.micronaut.security:micronaut-security-annotations")
     implementation("io.micronaut.security:micronaut-security-jwt")
+    implementation("io.micronaut:micronaut-http-client")
+    implementation("io.micronaut.reactor:micronaut-reactor")
 
     // r2dbc
     runtimeOnly("org.postgresql:r2dbc-postgresql")
     runtimeOnly("org.postgresql:postgresql")
+
+    testImplementation("io.micronaut:micronaut-http-client")
 }
 
 application {
@@ -21,7 +26,7 @@ application {
 
 micronaut {
     runtime("netty")
-    testRuntime("kotest5")
+    testRuntime("junit5")
     processing {
         incremental(true)
         annotations("io.study.*")
