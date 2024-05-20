@@ -1,9 +1,13 @@
 micronaut:
   server:
     port: 8200
+r2dbc:
+  datasources:
+    default:
+      dialect: postgres
+      url: r2dbc:postgresql://localhost:5432/postgres
+      username: saas
+      password: admin1234!
+      driver: postgresql
 
-  security:
-    authentication: bearer
-    token:
-      jwt.signatures.secret.generator.secret: secret
 
