@@ -17,6 +17,7 @@ dependencies {
     runtimeOnly("org.postgresql:r2dbc-postgresql")
 
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactive")
     runtimeOnly("ch.qos.logback:logback-classic")
 
 }

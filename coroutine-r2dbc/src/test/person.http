@@ -3,15 +3,19 @@ GET http://localhost:8200/persons
 
 ### POST request to example server
 POST http://localhost:8200/persons
+Content-Type: application/json
 
-poject2
+{
+  "name": "hoon",
+  "age": 23
+}
 
 ### DELETE request to example server
-DELETE http://localhost:8200/persons/9
+DELETE http://localhost:8200/persons/1
 
 
 ### GET id
-GET http://localhost:8200/persons/5
+GET http://localhost:8200/persons/2
 
 
 
