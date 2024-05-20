@@ -1,0 +1,17 @@
+### GET request to example server
+GET http://localhost:8200/persons
+
+### POST request to example server
+POST http://localhost:8200/persons
+
+poject2
+
+### DELETE request to example server
+DELETE http://localhost:8200/persons/9
+
+
+### GET id
+GET http://localhost:8200/persons/5
+
+
+
