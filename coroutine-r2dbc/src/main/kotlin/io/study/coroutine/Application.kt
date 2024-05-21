@@ -1,4 +1,4 @@
-package io.study.io.study.coroutine
+package io.study.coroutine
 
 import io.micronaut.runtime.Micronaut
 

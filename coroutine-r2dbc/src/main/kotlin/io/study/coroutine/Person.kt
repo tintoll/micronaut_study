@@ -1,4 +1,4 @@
-package io.study.io.study.coroutine
+package io.study.coroutine
 
 import io.micronaut.data.annotation.GeneratedValue
 import io.micronaut.data.annotation.Id

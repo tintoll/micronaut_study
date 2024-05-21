@@ -1,4 +1,4 @@
-package io.study.io.study.coroutine
+package io.study.coroutine
 
 import io.micronaut.data.model.query.builder.sql.Dialect
 import io.micronaut.data.r2dbc.annotation.R2dbcRepository

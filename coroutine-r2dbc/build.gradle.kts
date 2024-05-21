@@ -23,7 +23,7 @@ dependencies {
 }
 
 application {
-    mainClass.set("io.study.io.study.coroutine.ApplicationKt")
+    mainClass.set("io.study.coroutine.ApplicationKt")
 }
 
 micronaut {
