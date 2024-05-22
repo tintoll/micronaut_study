@@ -1,16 +1,17 @@
-package io.study.coroutine
+package io.study.coroutine.organization.domain
 
 import io.micronaut.data.annotation.GeneratedValue
 import io.micronaut.data.annotation.Id
 import io.micronaut.data.annotation.MappedEntity
 import io.micronaut.serde.annotation.Serdeable
 
+
 @Serdeable
 @MappedEntity
-data class Person(
+data class Organization(
     @field:Id
     @field:GeneratedValue(GeneratedValue.Type.AUTO)
-    var id: Long? = null,
+    val id: Long? = null,
     val name: String,
-    val age: Int
+    val description: String? = null,
 )

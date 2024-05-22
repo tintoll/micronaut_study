@@ -1,0 +1,27 @@
+### POST add one organization
+POST http://localhost:8200/organizations
+Content-Type: application/json
+
+{
+  "name": "nethru",
+  "description": "nethru is a software company"
+}
+
+
+### GET organization one
+GET http://localhost:8200/organizations/1
+
+
+### PUT organization update
+PUT http://localhost:8200/organizations/2
+Content-Type: application/json
+
+{
+  "name": "nethru2",
+  "description": "nethru is a software company2"
+}
+
+### DELETE organization
+DELETE http://localhost:8200/organizations/1
+
+
