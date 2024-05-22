@@ -1,0 +1,8 @@
+### POST create project
+POST http://localhost:8200/projects
+Content-Type: application/json
+
+{
+  "name": "test project",
+  "orgId" : 3
+}
