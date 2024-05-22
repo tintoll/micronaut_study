@@ -1,8 +1,8 @@
 package io.study.coroutine.organization.adapter
 
-import io.micronaut.http.HttpStatus
 import io.micronaut.http.annotation.*
 import io.study.coroutine.organization.application.port.OrganizationService
+import io.study.coroutine.organization.domain.Organization
 
 @Controller("/organizations")
 class OrganizationAPI(private val organizationService: OrganizationService) {
@@ -15,8 +15,13 @@ class OrganizationAPI(private val organizationService: OrganizationService) {
         organizationService.addOrganization(organizationRequest.toOrganization())
 
     @Put("/{id}")
-    suspend fun updateOrganization(@PathVariable id: Long, @Body organizationRequest: OrganizationRequest) =
-        organizationService.updateOrganization(id, organizationRequest.toOrganization())
+    suspend fun updateOrganization(
+        @PathVariable id: Long,
+        @Body organizationRequest: OrganizationRequest
+    ): Organization {
+        return organizationService.updateOrganization(id, organizationRequest.toOrganization())
+    }
+
 
     @Delete("/{id}")
     suspend fun deleteOrganization(@PathVariable id: Long) = organizationService.deleteOrganization(id)

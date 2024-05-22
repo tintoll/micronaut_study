@@ -13,7 +13,7 @@ GET http://localhost:8200/organizations/1
 
 
 ### PUT organization update
-PUT http://localhost:8200/organizations/2
+PUT http://localhost:8200/organizations/10
 Content-Type: application/json
 
 {

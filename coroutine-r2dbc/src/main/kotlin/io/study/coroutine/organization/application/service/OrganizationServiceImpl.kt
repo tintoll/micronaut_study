@@ -19,8 +19,9 @@ open class OrganizationServiceImpl(private val organizationRepository: Organizat
     }
 
     @Transactional
-    override suspend fun updateOrganization(id: Long, organization: Organization) {
+    override suspend fun updateOrganization(id: Long, organization: Organization): Organization {
         organizationRepository.update(id, organization.name, organization.description)
+        return getOrganization(id)!!
     }
 
     @Transactional
