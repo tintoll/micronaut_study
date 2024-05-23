@@ -5,7 +5,6 @@ import io.micronaut.context.annotation.Context
 import io.micronaut.context.annotation.Factory
 import io.r2dbc.pool.ConnectionPool
 import io.r2dbc.pool.ConnectionPoolConfiguration
-import io.r2dbc.proxy.ProxyConnectionFactory
 import io.r2dbc.spi.ConnectionFactories
 import io.r2dbc.spi.ConnectionFactory
 import io.r2dbc.spi.ConnectionFactoryOptions
@@ -24,17 +23,12 @@ class R2dbcConfigFactory {
             .maxSize(options.getValue(Option.valueOf<Int>("maxSize"))!!.toString().toInt())
             .validationQuery(options.getValue(Option.valueOf<String>("validationQuery"))!!.toString())
             .build()
+        return ConnectionPool(configuration)
 
-        val proxyConnectionFactory = ProxyConnectionFactory.builder(ConnectionPool(configuration))
-            .onAfterQuery {
-                val query = it.queries.joinToString()
-                val executionTime = it.executeDuration.toMillis()
-                logger.info {
-                    "after Query: $query in $executionTime ms"
-                }
-            }
-            .build()
-        return proxyConnectionFactory
+//        val proxyConnectionFactory = ProxyConnectionFactory.builder(ConnectionPool(configuration))
+//            .listener(QueryLoggingListener())
+//            .build()
+//        return proxyConnectionFactory
     }
 
 }

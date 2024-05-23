@@ -5,7 +5,7 @@ micronaut:
 r2dbc:
   datasources:
     default:
-      url: r2dbc:proxy:pool:postgresql://localhost:5432/postgres
+      url: r2dbc:proxy:pool:postgresql://localhost:5432/postgres?proxyListener=io.study.coroutine.QueryLoggingListener
       username: saas
       password: admin1234!
       driver: proxy
