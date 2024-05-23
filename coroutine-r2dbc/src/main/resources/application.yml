@@ -1,13 +1,19 @@
 micronaut:
   server:
     port: 8200
+
 r2dbc:
   datasources:
     default:
-      url: r2dbc:postgresql://localhost:5432/postgres
+      url: r2dbc:pool:postgresql://localhost:5432/postgres
       username: saas
       password: admin1234!
-      driver: postgresql
+      driver: pool
+      protocol: postgresql
       dialect: postgres
+      options:
+        maxSize: 20
+        initialSize : 10
+        validationQuery : "SELECT 1"
 
 

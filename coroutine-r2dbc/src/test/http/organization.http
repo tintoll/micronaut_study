@@ -9,7 +9,7 @@ Content-Type: application/json
 
 
 ### GET organization one
-GET http://localhost:8200/organizations/1
+GET http://localhost:8200/organizations/6
 
 
 ### PUT organization update
