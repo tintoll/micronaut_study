@@ -1,9 +1,11 @@
 package io.study.coroutine
 
+import io.github.oshai.kotlinlogging.KotlinLogging
 import io.micronaut.context.annotation.Context
 import io.micronaut.context.annotation.Factory
 import io.r2dbc.pool.ConnectionPool
 import io.r2dbc.pool.ConnectionPoolConfiguration
+import io.r2dbc.proxy.ProxyConnectionFactory
 import io.r2dbc.spi.ConnectionFactories
 import io.r2dbc.spi.ConnectionFactory
 import io.r2dbc.spi.ConnectionFactoryOptions
@@ -12,6 +14,7 @@ import io.r2dbc.spi.Option
 
 @Factory
 class R2dbcConfigFactory {
+    private val logger = KotlinLogging.logger { }
 
     @Context
     fun connectionFactory(options: ConnectionFactoryOptions): ConnectionFactory {
@@ -21,7 +24,17 @@ class R2dbcConfigFactory {
             .maxSize(options.getValue(Option.valueOf<Int>("maxSize"))!!.toString().toInt())
             .validationQuery(options.getValue(Option.valueOf<String>("validationQuery"))!!.toString())
             .build()
-        return ConnectionPool(configuration)
+
+        val proxyConnectionFactory = ProxyConnectionFactory.builder(ConnectionPool(configuration))
+            .onAfterQuery {
+                val query = it.queries.joinToString()
+                val executionTime = it.executeDuration.toMillis()
+                logger.info {
+                    "after Query: $query in $executionTime ms"
+                }
+            }
+            .build()
+        return proxyConnectionFactory
     }
 
 }

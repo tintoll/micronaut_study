@@ -5,10 +5,10 @@ micronaut:
 r2dbc:
   datasources:
     default:
-      url: r2dbc:pool:postgresql://localhost:5432/postgres
+      url: r2dbc:proxy:pool:postgresql://localhost:5432/postgres
       username: saas
       password: admin1234!
-      driver: pool
+      driver: proxy
       protocol: postgresql
       dialect: postgres
       options:
