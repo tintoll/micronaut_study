@@ -25,4 +25,10 @@ class OrganizationAPI(private val organizationService: OrganizationService) {
 
     @Delete("/{id}")
     suspend fun deleteOrganization(@PathVariable id: Long) = organizationService.deleteOrganization(id)
+
+
+    @Post("/{id}/add-users-to-project")
+    suspend fun addUsersToProject(@PathVariable id: Long, @Body addUsersRequest: AddUsersRequest): Map<String, Int> {
+        return organizationService.addUsersToProject(id, addUsersRequest)
+    }
 }

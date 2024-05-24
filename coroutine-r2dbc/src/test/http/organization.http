@@ -24,4 +24,14 @@ Content-Type: application/json
 ### DELETE organization
 DELETE http://localhost:8200/organizations/1
 
+### ADD Users
+POST http://localhost:8200/organizations/3/add-users-to-project
+Content-Type: application/json
 
+{
+  "projectId": 9,
+  "users": [
+    5,
+    7
+  ]
+}

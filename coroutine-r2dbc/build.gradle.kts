@@ -20,6 +20,9 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactive")
     runtimeOnly("ch.qos.logback:logback-classic")
 
+
+    implementation("io.micronaut:micronaut-http-client")
+
     implementation("io.r2dbc:r2dbc-pool:1.0.1.RELEASE")
     implementation("io.r2dbc:r2dbc-proxy:1.1.5.RELEASE")
 

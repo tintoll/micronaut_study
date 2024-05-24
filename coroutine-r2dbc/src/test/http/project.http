@@ -3,6 +3,53 @@ POST http://localhost:8200/projects
 Content-Type: application/json
 
 {
-  "name": "test project",
-  "orgId" : 3
+  "name": "project 13",
+  "orgId" : 5
+}
+
+
+### GET Projects by orgId
+GET http://localhost:8200/projects?orgId=3
+
+### GET Project by projectId
+GET http://localhost:8200/projects/3
+
+
+### DELETE Project by projectId
+DELETE http://localhost:8200/projects/4
+
+### PUT update project by projectId
+PUT http://localhost:8200/projects/5
+Content-Type: application/json
+
+{
+  "name": "project updated 111",
+  "orgId" : 3,
+  "timezone" : "Asia/Kolkata"
+}
+
+
+### POST update project name by projectId
+POST http://localhost:8200/projects/5/update/name
+Content-Type: application/json
+
+{
+  "name": "project updated 222"
+}
+
+### POST update project timezone by projectId
+POST http://localhost:8200/projects/5/update/timezone
+Content-Type: application/json
+
+{
+  "timezone": "US/Pacific"
+}
+
+
+### POST add users to project
+POST http://localhost:8200/projects/6/add-users
+Content-Type: application/json
+
+{
+  "users": [2,3]
 }
