@@ -4,26 +4,23 @@ import io.github.oshai.kotlinlogging.KotlinLogging
 import io.micronaut.core.type.Argument
 import io.micronaut.http.HttpRequest
 import io.micronaut.http.client.HttpClient
-import io.micronaut.http.client.annotation.Client
-import io.micronaut.http.uri.UriBuilder
 import io.study.coroutine.organization.adapter.AddUsersRequest
 import io.study.coroutine.organization.application.port.OrganizationRepository
 import io.study.coroutine.organization.application.port.OrganizationService
 import io.study.coroutine.organization.domain.Organization
-import jakarta.inject.Inject
+import io.study.coroutine.user.User
+import io.study.coroutine.user.UserService
 import jakarta.inject.Singleton
 import jakarta.transaction.Transactional
 import kotlinx.coroutines.reactive.awaitSingle
-import org.reactivestreams.Publisher
-import java.net.URL
 
 
 @Singleton
-open class OrganizationServiceImpl(private val organizationRepository: OrganizationRepository) : OrganizationService {
-
-    @Client("http://localhost:8200")
-    @Inject
-    lateinit var httpClient: HttpClient
+open class OrganizationServiceImpl(
+    private val organizationRepository: OrganizationRepository,
+    private val userService: UserService,
+    private val httpClient: HttpClient
+) : OrganizationService {
 
     override suspend fun getOrganization(id: Long): Organization? {
         return organizationRepository.findById(id)
@@ -45,6 +42,7 @@ open class OrganizationServiceImpl(private val organizationRepository: Organizat
         organizationRepository.deleteById(id)
     }
 
+    @Transactional
     override suspend fun addUsersToProject(id: Long, addUsersRequest: AddUsersRequest): Map<String, Int> {
         val uri = "http://localhost:8200/projects/${addUsersRequest.projectId}/add-users"
 
@@ -58,6 +56,9 @@ open class OrganizationServiceImpl(private val organizationRepository: Organizat
         return awaitSingle
     }
 
+    override suspend fun getOrganizationUsers(id: Long): List<User> {
+        return userService.getUsersByOrgId(id)
+    }
 
     companion object {
         private val logger = KotlinLogging.logger {  }

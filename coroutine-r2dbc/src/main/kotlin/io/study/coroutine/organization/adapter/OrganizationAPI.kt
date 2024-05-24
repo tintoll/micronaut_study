@@ -22,7 +22,6 @@ class OrganizationAPI(private val organizationService: OrganizationService) {
         return organizationService.updateOrganization(id, organizationRequest.toOrganization())
     }
 
-
     @Delete("/{id}")
     suspend fun deleteOrganization(@PathVariable id: Long) = organizationService.deleteOrganization(id)
 
@@ -31,4 +30,8 @@ class OrganizationAPI(private val organizationService: OrganizationService) {
     suspend fun addUsersToProject(@PathVariable id: Long, @Body addUsersRequest: AddUsersRequest): Map<String, Int> {
         return organizationService.addUsersToProject(id, addUsersRequest)
     }
+
+    // 조직에 속해있는 사용자 목록
+    @Get("/{id}/users")
+    suspend fun getOrganizationUsers(@PathVariable id: Long) = organizationService.getOrganizationUsers(id)
 }

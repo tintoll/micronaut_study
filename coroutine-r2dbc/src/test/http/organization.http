@@ -35,3 +35,7 @@ Content-Type: application/json
     7
   ]
 }
+
+
+### GET Users
+GET http://localhost:8200/organizations/3/users
