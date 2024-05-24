@@ -53,3 +53,6 @@ Content-Type: application/json
 {
   "users": [2,3]
 }
+
+### GET users by projectId
+GET http://localhost:8200/projects/6/users

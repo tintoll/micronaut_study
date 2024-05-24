@@ -1,5 +1,6 @@
 package io.study.coroutine.project.application.port
 
+import io.study.coroutine.project.application.service.ResponseUser
 import io.study.coroutine.project.domain.Project
 
 interface ProjectService {
@@ -12,6 +13,6 @@ interface ProjectService {
     suspend fun updateProject(id: Long, editProject: Project): Project
     suspend fun updateProjectName(id: Long, name: String): Int
     suspend fun updateProjectTimezone(id: Long, timezone: String): Int
-    suspend fun getProjectUsers(id: Long): List<HashMap<String,String>>
+    suspend fun getProjectUsers(id: Long): List<ResponseUser>
     suspend fun addUsers(id: Long, users: List<Long>): Int
 }

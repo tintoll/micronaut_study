@@ -1,16 +1,23 @@
 package io.study.coroutine.project.application.service
 
+import io.micronaut.core.type.Argument
+import io.micronaut.http.HttpRequest
+import io.micronaut.http.client.HttpClient
+import io.micronaut.http.uri.UriBuilder
 import io.study.coroutine.project.application.port.ProjectRepository
 import io.study.coroutine.project.application.port.ProjectService
 import io.study.coroutine.project.domain.Project
 import jakarta.inject.Singleton
 import jakarta.transaction.Transactional
+import kotlinx.coroutines.reactive.awaitSingle
 import java.util.*
-import kotlin.collections.HashMap
 
 
 @Singleton
-open class ProjectServiceImpl(private val projectRepository: ProjectRepository) : ProjectService {
+open class ProjectServiceImpl(
+    private val projectRepository: ProjectRepository,
+    private val httpClient: HttpClient,
+) : ProjectService {
 
     @Transactional
     override suspend fun addProject(project: Project): Project {
@@ -50,7 +57,7 @@ open class ProjectServiceImpl(private val projectRepository: ProjectRepository) 
 
     @Transactional
     override suspend fun updateProjectName(id: Long, name: String): Int {
-       return projectRepository.updateName(id, name)
+        return projectRepository.updateName(id, name)
     }
 
     @Transactional
@@ -59,11 +66,19 @@ open class ProjectServiceImpl(private val projectRepository: ProjectRepository) 
     }
 
 
-    override suspend fun getProjectUsers(id: Long): List<HashMap<String, String>> {
-        // 사용자 정보를 가져와서 상세 정보를 user에 요청하여 받은 결과를 리턴
+    override suspend fun getProjectUsers(id: Long): List<ResponseUser> {
+        val project = getProject(id)
 
-        // 프로젝트에 말고 project_users (id, project_id, user_id, role) 테이블을 만들어서 사용자 정보를 가져오는게 좋을까?
-        TODO("Not yet implemented")
+        val uriBuilder = UriBuilder.of("http://localhost:8200/users/ids")
+        project.joinUsers?.forEach {
+            uriBuilder.queryParam("ids", it)
+        }
+
+        val uri = uriBuilder.build().toString()
+        val req = HttpRequest.GET<ResponseUser>(uri)
+        val result = httpClient.retrieve(req, Argument.listOf(ResponseUser::class.java))
+        val users: MutableList<ResponseUser> = result.awaitSingle()
+        return users.toList()
     }
 
     @Transactional
