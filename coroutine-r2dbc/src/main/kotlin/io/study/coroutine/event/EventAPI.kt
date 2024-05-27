@@ -52,4 +52,9 @@ class EventAPI(private val eventService: EventService) {
         println("export csv")
     }
 
+    @Post("/duplicate/{id}")
+    suspend fun duplicateEvent(@PathVariable id: Long) {
+        eventService.duplicateEvent(id)
+    }
+
 }

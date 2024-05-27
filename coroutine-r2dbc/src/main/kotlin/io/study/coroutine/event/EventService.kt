@@ -31,5 +31,9 @@ class EventService(private val eventRepository: EventRepository) {
         eventRepository.deleteById(id)
     }
 
+    suspend fun duplicateEvent(id: Long) {
+
+    }
+
 
 }
