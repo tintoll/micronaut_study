@@ -1,0 +1,27 @@
+### GET events
+GET http://localhost:8200/events
+
+### GET event by id
+GET http://localhost:8200/events/1
+
+### POST event
+POST http://localhost:8200/events
+Content-Type: application/json
+
+{
+  "name": "tttt"
+}
+
+### PUT event
+PUT http://localhost:8200/events/1
+Content-Type: application/json
+
+{
+  "name": "page_scrolling modify",
+  "projectId": 6,
+  "activity" : "INACTIVE",
+  "description" : "page scrolling event"
+}
+
+### DELETE event
+DELETE http://localhost:8200/events/1
