@@ -2,8 +2,14 @@ package io.study.coroutine.project.application.service
 
 import io.micronaut.core.type.Argument
 import io.micronaut.http.HttpRequest
+import io.micronaut.http.HttpResponse
+import io.micronaut.http.HttpStatus
+import io.micronaut.http.annotation.Error
 import io.micronaut.http.client.HttpClient
+import io.micronaut.http.hateoas.JsonError
+import io.micronaut.http.hateoas.Link
 import io.micronaut.http.uri.UriBuilder
+import io.study.coroutine.common.ProjectNotFoundException
 import io.study.coroutine.project.application.port.ProjectRepository
 import io.study.coroutine.project.application.port.ProjectService
 import io.study.coroutine.project.domain.Project
@@ -18,6 +24,7 @@ open class ProjectServiceImpl(
     private val projectRepository: ProjectRepository,
     private val httpClient: HttpClient,
 ) : ProjectService {
+
 
     @Transactional
     override suspend fun addProject(project: Project): Project {
@@ -35,7 +42,7 @@ open class ProjectServiceImpl(
     }
 
     override suspend fun getProject(id: Long): Project {
-        return projectRepository.findById(id) ?: throw IllegalArgumentException("Project not found for id: $id")
+        return projectRepository.findById(id) ?: throw ProjectNotFoundException("존재하지 않는 프로젝트입니다. id: $id")
     }
 
     @Transactional
