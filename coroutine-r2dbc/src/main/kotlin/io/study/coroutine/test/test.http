@@ -1,0 +1,5 @@
+### GET
+GET http://localhost:8200/test
+
+### GET
+GET http://localhost:8200/test/region
