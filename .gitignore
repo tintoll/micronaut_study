@@ -44,3 +44,5 @@ bin/
 
 .env
 /s3
+
+local.env

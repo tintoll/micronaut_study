@@ -2,6 +2,7 @@ package io.tintoll.indra
 
 import nethru.indra.shard.config.Config
 import nethru.indra.shard.config.MetadataStoreConfig
+import nethru.indra.shard.config.StorageConfig
 
 val rootPath = "./s3"
 val tenantId = "blue_project1"
@@ -9,6 +10,13 @@ val registryConfig = Config(
     metadataCachePath = "$rootPath/registry",
     shardPath = "$rootPath/shards",
     metadataStoreConfig = MetadataStoreConfig(listOf("localhost:9091, localhost:9092, localhost:9093")),
+    deepStorageConfig = StorageConfig(
+        endPointUrl = System.getenv("STORAGE_ENDPOINTS"),
+        regionName = System.getenv("STORAGE_REGION"),
+        accessKey = System.getenv("STORAGE_ACCESS_KEY"),
+        secretKey = System.getenv("STORAGE_ACCESS_KEY"),
+        bucketName = System.getenv("STORAGE_BUCKET"),
+    )
 )
 
 val tableId = "events"
