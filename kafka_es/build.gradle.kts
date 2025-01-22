@@ -19,6 +19,9 @@ application {
 }
 
 micronaut {
+    with(versionCatalogs.named("libs")) {
+        findVersion("micronaut-platform").ifPresent { v -> version(v.requiredVersion) }
+    }
     runtime("netty")
     testRuntime("kotest5")
     processing {
