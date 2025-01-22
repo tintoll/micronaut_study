@@ -14,7 +14,7 @@ val registryConfig = Config(
         endPointUrl = System.getenv("STORAGE_ENDPOINTS"),
         regionName = System.getenv("STORAGE_REGION"),
         accessKey = System.getenv("STORAGE_ACCESS_KEY"),
-        secretKey = System.getenv("STORAGE_ACCESS_KEY"),
+        secretKey = System.getenv("STORAGE_SECRET_KEY"),
         bucketName = System.getenv("STORAGE_BUCKET"),
     )
 )
