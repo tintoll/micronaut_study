@@ -1,8 +1,6 @@
 package io.tintoll.indra
 
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import nethru.indra.querier.Querier
 import nethru.indra.query.SelectorBuilder
 import nethru.indra.schema.registry.SchemaRegistry
@@ -12,11 +10,12 @@ import java.util.concurrent.Executors
 import kotlin.system.exitProcess
 
 
-fun main() {
+fun main() = runBlocking {
     val shardRegistry = ShardRegistry.open(tenantId, registryConfig)
 
-    CoroutineScope(Dispatchers.IO).launch {
+    val r = CoroutineScope(Dispatchers.IO).async {
         shardRegistry.sync()
+        true
     }
 
     val tableSchemaRegistry = SchemaRegistry()
@@ -33,7 +32,7 @@ fun main() {
     val builder = SelectorBuilder(metadataSchema)
     val period by builder.dateTimeRange
 
-
+    r.await() // 완료 대기 함
     val shards = table.find {
         all {
             +period contains Instant.ofEpochMilli(17260362050000)
@@ -60,6 +59,5 @@ fun main() {
         println("datareads size : ${datareads.count()}")
         exitProcess(0)
     }
-
 
 }
