@@ -1,16 +1,20 @@
 package io.tintoll.indra
 
+import nethru.indra.querier.Querier
 import nethru.indra.query.SelectorBuilder
 import nethru.indra.schema.registry.SchemaRegistry
 import nethru.indra.shard.ShardRegistry
 import java.time.Instant
+import java.util.concurrent.Executors
 import kotlin.system.exitProcess
 
 
 fun main() {
     val shardRegistry = ShardRegistry.open(tenantId, registryConfig)
 
-//    shardRegistry.sync()
+    Thread {
+        shardRegistry.sync()
+    }.start()
 
     val tableSchemaRegistry = SchemaRegistry()
     val metadataSchemaRegistry = SchemaRegistry()
@@ -32,12 +36,28 @@ fun main() {
             +period contains Instant.ofEpochMilli(17260362050000)
         }
     }
-    // 여기서 대기해야되나?
 
     println("shard size : ${shards.size}")
+    // shard를 찾았다고 해서 샤드를 내려받지는 않는다. registry만 내려받음.
 
-    // shard를 찾았다고 해서 샤드를 내려받지는 않는다.
+
+    if (shards.isNotEmpty()) {
+        val querierFactory = Querier.Factory(tenantId, Querier.Config(), Executors.newFixedThreadPool(1))
+        val querier = querierFactory.wrap(shards) // 이 시점에 로컬에 내려받는다.
+
+        // user stitching 할 데이터 검색
+        val tableBuilder = SelectorBuilder(tableSchema)
+        val `@userid` by tableBuilder.token
+        val matchSet = querier.find {
+            all {
+                +`@userid` has "U1"
+            }
+        }
+
+        val datareads = querier.fetch(matchSet)
+        println("datareads size : ${datareads.count()}")
+        exitProcess(0)
+    }
 
 
-    exitProcess(0)
 }
