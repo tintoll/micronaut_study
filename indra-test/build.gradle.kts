@@ -28,7 +28,7 @@ dependencies {
     implementation("nethru.indra:schema-registry:0.1.3")
     implementation("nethru.indra:querier:0.1.4")
 
-
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.1")
 
     testImplementation(kotlin("test"))
 }

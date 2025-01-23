@@ -1,5 +1,8 @@
 package io.tintoll.indra
 
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import nethru.indra.querier.Querier
 import nethru.indra.query.SelectorBuilder
 import nethru.indra.schema.registry.SchemaRegistry
@@ -12,9 +15,9 @@ import kotlin.system.exitProcess
 fun main() {
     val shardRegistry = ShardRegistry.open(tenantId, registryConfig)
 
-    Thread {
+    CoroutineScope(Dispatchers.IO).launch {
         shardRegistry.sync()
-    }.start()
+    }
 
     val tableSchemaRegistry = SchemaRegistry()
     val metadataSchemaRegistry = SchemaRegistry()
@@ -39,7 +42,6 @@ fun main() {
 
     println("shard size : ${shards.size}")
     // shard를 찾았다고 해서 샤드를 내려받지는 않는다. registry만 내려받음.
-
 
     if (shards.isNotEmpty()) {
         val querierFactory = Querier.Factory(tenantId, Querier.Config(), Executors.newFixedThreadPool(1))
