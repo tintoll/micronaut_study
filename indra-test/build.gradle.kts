@@ -30,6 +30,8 @@ dependencies {
 
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.1")
 
+    implementation("org.antlr:ST4:4.3")
+
     testImplementation(kotlin("test"))
 }
 

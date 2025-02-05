@@ -1,0 +1,11 @@
+group UserTemplates;
+
+dataClass(packageName, className, fields) ::= <<
+package <packageName>;
+
+data class <className>(<fields; separator=", ">) {
+    fun printDetails() {
+        println(this.toString())
+    }
+}
+>>
