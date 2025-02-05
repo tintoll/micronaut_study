@@ -23,10 +23,11 @@ repositories {
 dependencies {
 
     // indra
-    implementation("nethru.indra:indexer:0.1.2")
-    implementation("nethru.indra:shard-registry:0.1.3")
-    implementation("nethru.indra:schema-registry:0.1.3")
-    implementation("nethru.indra:querier:0.1.4")
+    implementation(platform("nethru.indra:indra-bom:0.1.5-SNAPSHOT"))
+    implementation("nethru.indra:indexer")
+    implementation("nethru.indra:shard-registry")
+    implementation("nethru.indra:schema-registry")
+    implementation("nethru.indra:querier")
 
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.1")
 
